@@ -7,7 +7,7 @@ import org.activiti.engine.delegate.JavaDelegate;
 
 import com.diplab.activiti.temperature.RecordsUtil;
 import com.diplab.activiti.temperature.TemperatureReceiver;
-import com.diplab.temperature.TemperatureReceiverImp;
+import com.diplab.activiti.temperature.TemperatureReceiverImp;
 
 public class ReadTempTask implements JavaDelegate {
 	TemperatureReceiver receiver = new TemperatureReceiverImp();

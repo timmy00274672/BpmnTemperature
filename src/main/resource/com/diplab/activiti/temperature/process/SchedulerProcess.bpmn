@@ -3,7 +3,7 @@
   <process id="schedulerProcess" name="schedulerProcess" isExecutable="true">
     <startEvent id="startevent1" name="Start"></startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="schedulerTask"></sequenceFlow>
-    <serviceTask id="schedulerTask" name="schedulerTask" activiti:async="true" activiti:class="com.diplab.temperature.delegate.SchedulerTask"></serviceTask>
+    <serviceTask id="schedulerTask" name="schedulerTask" activiti:async="true" activiti:class="com.diplab.activiti.temperature.delegate.SchedulerTask"></serviceTask>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow2" sourceRef="schedulerTask" targetRef="endevent1"></sequenceFlow>
   </process>

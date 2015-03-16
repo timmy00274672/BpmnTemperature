@@ -10,6 +10,6 @@
     <sequenceFlow id="sequenceflow1" name="Validate order" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <sequenceFlow id="sequenceflow2" name="Validate order" sourceRef="servicetask1" targetRef="endevent1"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
-    <serviceTask id="servicetask1" name="scriptTask1" activiti:class="com.diplab.temperature.delegate.TestTask"></serviceTask>
+    <serviceTask id="servicetask1" name="scriptTask1" activiti:class="com.diplab.activiti.temperature.delegate.TestTask"></serviceTask>
   </process>
 </definitions>

@@ -3,7 +3,7 @@
   <process id="ReadTempProcess" name="ReadTempProcess" isExecutable="true">
     <startEvent id="startevent1" name="Start"></startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="ReadTempTask"></sequenceFlow>
-    <serviceTask id="ReadTempTask" name="ReadTempTask" activiti:async="true" activiti:class="com.diplab.temperature.delegate.ReadTempTask"></serviceTask>
+    <serviceTask id="ReadTempTask" name="ReadTempTask" activiti:async="true" activiti:class="com.diplab.activiti.temperature.delegate.ReadTempTask"></serviceTask>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow2" sourceRef="ReadTempTask" targetRef="endevent1"></sequenceFlow>
   </process>

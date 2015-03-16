@@ -1,4 +1,4 @@
-package com.diplab.temperature;
+package com.diplab.activiti.temperature;
 
 import com.diplab.activiti.temperature.Temperature;
 import com.diplab.activiti.temperature.TemperatureReceiver;
