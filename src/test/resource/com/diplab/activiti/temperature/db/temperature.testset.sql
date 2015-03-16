@@ -1,3 +1,0 @@
-insert into DIP_TEMPERATURE  ( SCAN_TIME_ , TEMPERATURE_ ) values ('1992-08-11 13:20:22', 30);
-insert into DIP_TEMPERATURE  ( SCAN_TIME_ , TEMPERATURE_ ) values ('1997-08-11 13:20:22', 40);
-insert into DIP_TEMPERATURE  ( SCAN_TIME_ , TEMPERATURE_ ) values ('2000-08-11 13:20:22', 55);

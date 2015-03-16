@@ -1,4 +1,4 @@
-package com.diplab.activiti.temperature.delegate;
+package com.diplab.temperature.delegate;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
