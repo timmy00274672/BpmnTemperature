@@ -1,20 +1,32 @@
 package com.diplab.activiti.temperature;
 
-public class Temperature {
+import java.io.Serializable;
+import java.util.Date;
 
-	private double temp;
+public class Temperature implements Serializable {
+
+	private static final long serialVersionUID = -349485433882229849L;
+	private double temperature;
+	private Date time = new Date();
 
 	public double getTemperature() {
-		return temp;
+		return temperature;
 	}
 
-	public Temperature(double temp) {
-		super();
-		this.temp = temp;
+	public void setTemperature(double temperature) {
+		this.temperature = temperature;
+	}
+
+	public Date getTime() {
+		return time;
+	}
+
+	public void setTime(Date time) {
+		this.time = time;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("T=%d", temp);
+		return String.format("%s T=%f", time.toString(), temperature);
 	}
 }

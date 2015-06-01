@@ -10,7 +10,7 @@ import org.activiti.bpmn.model.StartEvent;
 import org.activiti.bpmn.model.alfresco.AlfrescoStartEvent;
 import org.apache.commons.lang3.StringUtils;
 
-import com.diplab.activiti.temperature.Constant;
+import com.diplab.activiti.Constant;
 
 public class DiplabStartEventXMLConverter extends StartEventXMLConverter {
 

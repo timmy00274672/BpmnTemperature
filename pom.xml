@@ -11,7 +11,7 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<activiti-version>5.16.4</activiti-version>
+		<activiti-version>5.17.0</activiti-version>
 		<spring-version>3.1.2.RELEASE</spring-version>
 	</properties>
 	<dependencies>

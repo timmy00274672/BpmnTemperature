@@ -6,8 +6,8 @@ import org.activiti.bpmn.converter.child.BaseChildElementParser;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 
-import com.diplab.activiti.bpmn.model.DiplabEventDefinition;
-import com.diplab.activiti.temperature.Constant;
+import com.diplab.activiti.Constant;
+import com.diplab.activiti.bpmn.model.TemperatureEventDefinition;
 
 public class ModeParser extends BaseChildElementParser {
 
@@ -20,10 +20,10 @@ public class ModeParser extends BaseChildElementParser {
 	public void parseChildElement(XMLStreamReader xtr,
 			BaseElement parentElement, BpmnModel model) throws Exception {
 
-		if (parentElement instanceof DiplabEventDefinition == false)
+		if (parentElement instanceof TemperatureEventDefinition == false)
 			return;
 
-		DiplabEventDefinition eventDefinition = (DiplabEventDefinition) parentElement;
+		TemperatureEventDefinition eventDefinition = (TemperatureEventDefinition) parentElement;
 		eventDefinition.setMode(xtr.getElementText());
 
 	}

@@ -9,11 +9,11 @@ import org.activiti.bpmn.model.BpmnModel;
 import com.diplab.activiti.Constant;
 import com.diplab.activiti.bpmn.model.TemperatureEventDefinition;
 
-public class ConditionParser extends BaseChildElementParser {
+public class IdParser extends BaseChildElementParser {
 
 	@Override
 	public String getElementName() {
-		return Constant.ATTRIBUTE_CONDITION;
+		return Constant.ATTRIBUTE_ID;
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class ConditionParser extends BaseChildElementParser {
 			return;
 
 		TemperatureEventDefinition eventDefinition = (TemperatureEventDefinition) parentElement;
-		eventDefinition.setCondition(xtr.getElementText());
+		eventDefinition.setId(xtr.getElementText());
 
 	}
 
