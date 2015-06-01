@@ -13,6 +13,24 @@ import com.diplab.activiti.engine.impl.cfg.DipProcessEngineConfiguration;
 
 public class ByteArray {
 
+	static class Temperature implements Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 3430156490697045617L;
+		String name;
+
+		public Temperature(String name) {
+			super();
+			this.name = name;
+		}
+
+		@Override
+		public String toString() {
+			return "Temperature [name=" + name + "]";
+		}
+	}
+
 	public static void main(String[] args) throws InterruptedException {
 		ProcessEngineConfigurationImpl config = new DipProcessEngineConfiguration();
 		config.setJdbcUrl("jdbc:h2:tcp://localhost/Activiti");
@@ -40,24 +58,6 @@ public class ByteArray {
 					}
 				});
 
-	}
-
-	static class Temperature implements Serializable {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 3430156490697045617L;
-		String name;
-
-		@Override
-		public String toString() {
-			return "Temperature [name=" + name + "]";
-		}
-
-		public Temperature(String name) {
-			super();
-			this.name = name;
-		}
 	}
 
 }

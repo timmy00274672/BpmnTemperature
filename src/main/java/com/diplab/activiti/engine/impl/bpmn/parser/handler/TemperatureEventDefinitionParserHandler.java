@@ -24,11 +24,6 @@ public class TemperatureEventDefinitionParserHandler extends
 			.getLogger(TemperatureEventDefinitionParserHandler.class);
 
 	@Override
-	protected Class<? extends BaseElement> getHandledType() {
-		return TemperatureEventDefinition.class;
-	}
-
-	@Override
 	protected void executeParse(BpmnParse bpmnParse,
 			TemperatureEventDefinition element) {
 
@@ -53,6 +48,11 @@ public class TemperatureEventDefinitionParserHandler extends
 		} else {
 			LOG.error("Only start event support temperatureEventDefinition");
 		}
+	}
+
+	@Override
+	protected Class<? extends BaseElement> getHandledType() {
+		return TemperatureEventDefinition.class;
 	}
 
 	private TemperatureDeclarationImpl prepareTemperatureDeclaration(

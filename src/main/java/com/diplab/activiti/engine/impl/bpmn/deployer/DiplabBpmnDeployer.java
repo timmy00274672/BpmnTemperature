@@ -34,6 +34,20 @@ public class DiplabBpmnDeployer extends BpmnDeployer {
 	private static final Logger log = LoggerFactory
 			.getLogger(DiplabBpmnDeployer.class);
 
+	private void addTemperautres(ProcessDefinitionEntity processDefinition) {
+		@SuppressWarnings("unchecked")
+		List<TemperatureDeclarationImpl> tempDeclarations = (List<TemperatureDeclarationImpl>) processDefinition
+				.getProperty(Constant.PROPERTYNAME_START_TEMP);
+		if (tempDeclarations != null) {
+			for (TemperatureDeclarationImpl temperatureDeclarationImpl : tempDeclarations) {
+				TemperatureEntity temperatureEntity = new TemperatureEntity(
+						temperatureDeclarationImpl,processDefinition
+						.getId());
+				temperatureEntity.insert();
+			}
+		}
+	}
+
 	@Override
 	public void deploy(DeploymentEntity deployment,
 			Map<String, Object> deploymentSettings) {
@@ -290,20 +304,6 @@ public class DiplabBpmnDeployer extends BpmnDeployer {
 	private void removeObsoleteTemperatures(
 			ProcessDefinitionEntity processDefinition) {
 		// TODO Auto-generated method stub
-	}
-
-	private void addTemperautres(ProcessDefinitionEntity processDefinition) {
-		@SuppressWarnings("unchecked")
-		List<TemperatureDeclarationImpl> tempDeclarations = (List<TemperatureDeclarationImpl>) processDefinition
-				.getProperty(Constant.PROPERTYNAME_START_TEMP);
-		if (tempDeclarations != null) {
-			for (TemperatureDeclarationImpl temperatureDeclarationImpl : tempDeclarations) {
-				TemperatureEntity temperatureEntity = new TemperatureEntity(
-						temperatureDeclarationImpl,processDefinition
-						.getId());
-				temperatureEntity.insert();
-			}
-		}
 	}
 
 	private void scheduleTimers(List<TimerEntity> timers) {

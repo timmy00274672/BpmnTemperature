@@ -9,40 +9,9 @@ public class TemperatureDeclarationImpl implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	protected double condition;
-
 	protected TemperatureMode mode;
-
 	protected String jobHandlerType;
-
-	protected String id;
-
-	public double getCondition() {
-		return condition;
-	}
-
-	public void setCondition(double condition) {
-		this.condition = condition;
-	}
-
-	public TemperatureMode getMode() {
-		return mode;
-	}
-
-	public void setMode(TemperatureMode mode) {
-		this.mode = mode;
-	}
-
-	public void setJobHandlerType(String jobHandlerType) {
-		this.jobHandlerType = jobHandlerType;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+	protected String sensorId;
 
 	public TemperatureDeclarationImpl(double condition, TemperatureMode mode,
 			String jobHandlerType, String id) {
@@ -50,17 +19,45 @@ public class TemperatureDeclarationImpl implements Serializable {
 		this.condition = condition;
 		this.mode = mode;
 		this.jobHandlerType = jobHandlerType;
-		this.id = id;
+		this.sensorId = id;
+	}
+
+	public double getCondition() {
+		return condition;
 	}
 
 	public String getJobHandlerType() {
 		return jobHandlerType;
 	}
 
+	public TemperatureMode getMode() {
+		return mode;
+	}
+
+	public String getSensorId() {
+		return sensorId;
+	}
+
+	public void setCondition(double condition) {
+		this.condition = condition;
+	}
+
+	public void setJobHandlerType(String jobHandlerType) {
+		this.jobHandlerType = jobHandlerType;
+	}
+
+	public void setMode(TemperatureMode mode) {
+		this.mode = mode;
+	}
+
+	public void setSensorId(String id) {
+		this.sensorId = id;
+	}
+
 	@Override
 	public String toString() {
 		return "TemperatureDeclarationImpl [condition=" + condition + ", mode="
-				+ mode + ", jobHandlerType=" + jobHandlerType + ", id=" + id
+				+ mode + ", jobHandlerType=" + jobHandlerType + ", sensor_id=" + sensorId
 				+ "]";
 	}
 

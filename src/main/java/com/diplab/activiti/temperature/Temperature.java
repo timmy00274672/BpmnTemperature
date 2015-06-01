@@ -13,12 +13,12 @@ public class Temperature implements Serializable {
 		return temperature;
 	}
 
-	public void setTemperature(double temperature) {
-		this.temperature = temperature;
-	}
-
 	public Date getTime() {
 		return time;
+	}
+
+	public void setTemperature(double temperature) {
+		this.temperature = temperature;
 	}
 
 	public void setTime(Date time) {

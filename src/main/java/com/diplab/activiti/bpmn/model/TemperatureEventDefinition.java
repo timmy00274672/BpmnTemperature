@@ -9,43 +9,43 @@ public class TemperatureEventDefinition extends EventDefinition {
 	protected String time = "10";// defautl : 10s
 	protected String id; // indicate which device
 
-	public String getMode() {
-		return mode;
-	}
-
-	public void setMode(String mode) {
-		this.mode = mode;
+	@Override
+	public EventDefinition clone() {
+		TemperatureEventDefinition clone = new TemperatureEventDefinition();
+		clone.setValues(this);
+		return null;
 	}
 
 	public String getCondition() {
 		return condition;
 	}
 
-	public void setCondition(String condition) {
-		this.condition = condition;
+	public String getId() {
+		return id;
+	}
+
+	public String getMode() {
+		return mode;
 	}
 
 	public String getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
-		this.time = time;
-	}
-
-	public String getId() {
-		return id;
+	public void setCondition(String condition) {
+		this.condition = condition;
 	}
 
 	public void setId(String id) {
 		this.id = id;
 	}
 
-	@Override
-	public EventDefinition clone() {
-		TemperatureEventDefinition clone = new TemperatureEventDefinition();
-		clone.setValues(this);
-		return null;
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public void setValues(TemperatureEventDefinition otherDefinition) {

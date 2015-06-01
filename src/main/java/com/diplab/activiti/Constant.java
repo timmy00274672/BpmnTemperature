@@ -28,9 +28,6 @@ public class Constant {
 	public static final String ELEMENT_TEMPERATURE_EVENT_DEFINITION = "temperatureEventDefinition";
 	public static final String PROPERTYNAME_START_TEMP = "property-start-temp"; // List<TemperatureDeclarationImpl>
 
-	private Constant() {
-	}
-
 	public static Map<String, BaseChildElementParser> DIP_PARSER;
 
 	static {
@@ -42,6 +39,9 @@ public class Constant {
 		for (BaseChildElementParser parser : parsers) {
 			DIP_PARSER.put(parser.getElementName(), parser);
 		}
+	}
+
+	private Constant() {
 	}
 
 }

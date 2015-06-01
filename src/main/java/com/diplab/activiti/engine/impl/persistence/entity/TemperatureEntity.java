@@ -20,49 +20,11 @@ public class TemperatureEntity extends JobEntity {
 
 	private double condition;
 	private TemperatureMode mode;
-	private String sensor_id;
+	private String sensorId;
 	private String self;
 
-	public String getSelf() {
-		return self;
-	}
+	public TemperatureEntity() {
 
-	public void setSelf(String self) {
-		this.self = self;
-	}
-
-	public double getCondition() {
-		return condition;
-	}
-
-	public void setCondition(double condition) {
-		this.condition = condition;
-	}
-
-	public TemperatureMode getMode() {
-		return mode;
-	}
-
-	public void setMode(TemperatureMode mode) {
-		this.mode = mode;
-	}
-
-	public String getSensor_id() {
-		return sensor_id;
-	}
-
-	public void setSensor_id(String sensor_id) {
-		this.sensor_id = sensor_id;
-	}
-
-	@Override
-	public void insert() {
-		ByteArrayRef ref = new ByteArrayRef();
-		ref.setValue("self", SerializationUtils.serialize(this));
-		
-		setSelf(ref.getId());
-		
-		super.insert();
 	}
 
 	public TemperatureEntity(TemperatureDeclarationImpl declaration,
@@ -71,7 +33,7 @@ public class TemperatureEntity extends JobEntity {
 		jobHandlerType = declaration.getJobHandlerType();
 		condition = declaration.getCondition();
 		mode = declaration.getMode();
-		sensor_id = declaration.getId();
+		sensorId = declaration.getSensorId();
 		Calendar instance = Calendar.getInstance();
 		instance.add(Calendar.SECOND, 10);
 		duedate = instance.getTime();
@@ -83,24 +45,12 @@ public class TemperatureEntity extends JobEntity {
 		this.jobHandlerType = entity.jobHandlerType;
 		this.condition = entity.condition;
 		this.mode = entity.mode;
-		this.sensor_id = entity.sensor_id;
+		this.sensorId = entity.sensorId;
 		this.processDefinitionId = entity.processDefinitionId;
 
 		Calendar instance = Calendar.getInstance();
 		instance.add(Calendar.SECOND, 10);
 		this.duedate = instance.getTime();
-	}
-
-	public TemperatureEntity() {
-
-	}
-
-	@Override
-	public void execute(CommandContext commandContext) {
-		// TODO Auto-generated method stub
-		super.execute(commandContext);
-		delete();
-		schedule(self);
 	}
 
 	@Override
@@ -110,6 +60,47 @@ public class TemperatureEntity extends JobEntity {
 		ref.delete();
 	}
 
+	@Override
+	public void execute(CommandContext commandContext) {
+		// 1. call the job handler
+		// 2. delete the touple of data both in Job and ByteArray tables.
+		// 3. re-schedule the job (the default action)
+		
+		//TODO: other action
+		super.execute(commandContext);
+		delete();
+		schedule(self);
+	}
+
+	public double getCondition() {
+		return condition;
+	}
+
+	public TemperatureMode getMode() {
+		return mode;
+	}
+
+	public String getSelf() {
+		return self;
+	}
+
+	public String getSensorId() {
+		return sensorId;
+	}
+
+	@Override
+	public void insert() {
+		//store self into BYTE_ARRAY, because extends the job table is dirty work
+		//store the id into self which will be mapped on the job table
+		
+		ByteArrayRef ref = new ByteArrayRef();
+		ref.setValue("self", SerializationUtils.serialize(this));
+		
+		setSelf(ref.getId());
+		
+		super.insert();
+	}
+
 	private void schedule(String self2) {
 		ByteArrayRef ref = new ByteArrayRef(self2);
 		TemperatureEntity entity = (TemperatureEntity) SerializationUtils
@@ -117,6 +108,22 @@ public class TemperatureEntity extends JobEntity {
 		entity = new TemperatureEntity(entity);
 		entity.insert();
 
+	}
+
+	public void setCondition(double condition) {
+		this.condition = condition;
+	}
+
+	public void setMode(TemperatureMode mode) {
+		this.mode = mode;
+	}
+
+	public void setSelf(String self) {
+		this.self = self;
+	}
+
+	public void setSensorId(String sensor_id) {
+		this.sensorId = sensor_id;
 	}
 
 }

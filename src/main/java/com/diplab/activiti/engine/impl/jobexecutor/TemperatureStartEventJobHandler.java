@@ -25,15 +25,10 @@ import com.diplab.activiti.temperature.Temperature;
 import com.diplab.activiti.temperature.TemperatureReceiver;
 
 public class TemperatureStartEventJobHandler implements JobHandler {
-	private Logger logger = LoggerFactory
-			.getLogger(TemperatureStartEventJobHandler.class);
-
 	public static final String TYPE = "temperature-start-event";
 
-	@Override
-	public String getType() {
-		return TYPE;
-	}
+	private Logger logger = LoggerFactory
+			.getLogger(TemperatureStartEventJobHandler.class);
 
 	@Override
 	public void execute(JobEntity job, String configuration,
@@ -43,14 +38,14 @@ public class TemperatureStartEventJobHandler implements JobHandler {
 				.deserialize(ref.getBytes());
 
 		TemperatureReceiver receiver = TemperatureReceiver
-				.getReceiverByDeviceId(entity.getSensor_id());
+				.getReceiverByDeviceId(entity.getSensorId());
 		if (receiver == null) {
 			throw new ActivitiException(String.format(
-					"%s sensor is not presenting yet", entity.getSensor_id()));
+					"%s sensor is not presenting yet", entity.getSensorId()));
 		}
 		Temperature temperature = receiver.getTemperature();
 		logger.info(String.format("get Temperature = %f from %s",
-				temperature.getTemperature(), entity.getSensor_id()));
+				temperature.getTemperature(), entity.getSensorId()));
 
 		DeploymentManager deploymentCache = Context
 				.getProcessEngineConfiguration().getDeploymentManager();
@@ -75,5 +70,10 @@ public class TemperatureStartEventJobHandler implements JobHandler {
 			variables.put("temperature", Arrays.<Temperature>asList(receiver.getTemperature()));
 			new StartProcessInstanceCmd<Object>(null, processDefinition.getId(), null, variables ).execute(commandContext);
 		}
+	}
+
+	@Override
+	public String getType() {
+		return TYPE;
 	}
 }
