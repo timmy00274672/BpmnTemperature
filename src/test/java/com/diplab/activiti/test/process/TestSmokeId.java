@@ -22,7 +22,7 @@ public class TestSmokeId {
 		
 		processEngine.getRepositoryService().createDeployment()
 				.disableSchemaValidation().disableBpmnValidation()
-				.addClasspathResource("smokeID.bpmn").deploy();
+				.addClasspathResource("bpmn/smokeID.bpmn").deploy();
 
 	}
 }

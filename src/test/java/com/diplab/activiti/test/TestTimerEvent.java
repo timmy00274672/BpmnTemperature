@@ -26,7 +26,7 @@ public class TestTimerEvent {
 
 		// processEngine.getRepositoryService().createDeployment()
 		// .disableSchemaValidation().disableBpmnValidation()
-		// .addClasspathResource("timerStart.bpmn").deploy();
+		// .addClasspathResource("bpmn/timerStart.bpmn").deploy();
 
 		processEngine.getManagementService().executeCommand(
 				new Command<Void>() {
