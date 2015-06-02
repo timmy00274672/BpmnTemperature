@@ -29,7 +29,7 @@ public class InsertJobEntity {
 					public Void execute(CommandContext commandContext) {
 						TemperatureDeclarationImpl declaration = new TemperatureDeclarationImpl(
 								23, TemperatureMode.EQUAL,
-								TemperatureStartEventJobHandler.TYPE, "2");
+								TemperatureStartEventJobHandler.TYPE, "2", 1);
 						Context.getCommandContext()
 								.getDbSqlSession()
 								.insert(new TemperatureEntity(declaration, null));

@@ -12,14 +12,16 @@ public class TemperatureDeclarationImpl implements Serializable {
 	protected TemperatureMode mode;
 	protected String jobHandlerType;
 	protected String sensorId;
+	protected int time;
 
 	public TemperatureDeclarationImpl(double condition, TemperatureMode mode,
-			String jobHandlerType, String id) {
+			String jobHandlerType, String id, int time) {
 		super();
 		this.condition = condition;
 		this.mode = mode;
 		this.jobHandlerType = jobHandlerType;
 		this.sensorId = id;
+		this.time = time;
 	}
 
 	public double getCondition() {
@@ -38,6 +40,10 @@ public class TemperatureDeclarationImpl implements Serializable {
 		return sensorId;
 	}
 
+	public int getTime() {
+		return time;
+	}
+
 	public void setCondition(double condition) {
 		this.condition = condition;
 	}
@@ -54,11 +60,15 @@ public class TemperatureDeclarationImpl implements Serializable {
 		this.sensorId = id;
 	}
 
+	public void setTime(int time) {
+		this.time = time;
+	}
+
 	@Override
 	public String toString() {
 		return "TemperatureDeclarationImpl [condition=" + condition + ", mode="
-				+ mode + ", jobHandlerType=" + jobHandlerType + ", sensor_id=" + sensorId
-				+ "]";
+				+ mode + ", jobHandlerType=" + jobHandlerType + ", sensorId="
+				+ sensorId + ", time=" + time + "]";
 	}
 
 }

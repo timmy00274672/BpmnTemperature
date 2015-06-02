@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.StartEvent;
+import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.handler.AbstractBpmnParseHandler;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
@@ -58,22 +59,35 @@ public class TemperatureEventDefinitionParserHandler extends
 	private TemperatureDeclarationImpl prepareTemperatureDeclaration(
 			TemperatureEventDefinition element) {
 		double condition;
-		TemperatureMode mode = TemperatureMode.NONE;
+		int time;
+		TemperatureMode mode = null;
 
 		for (TemperatureMode mode2 : TemperatureMode.values()) {
 			if (element.getMode().equalsIgnoreCase(mode2.calendarName))
 				mode = mode2;
 		}
 
+		if (mode == null)
+			throw new ActivitiException(String.format("%s is not supported.",
+					element.getMode()));
+
 		try {
 			condition = Double.parseDouble(element.getCondition());
 		} catch (NullPointerException | NumberFormatException e) {
-			LOG.error("condition format error or null");
-			return null;
+			throw new ActivitiException(String.format(
+					"condition (%s) format error or null.",
+					element.getCondition()));
+		}
+
+		try {
+			time = Integer.parseInt(element.getTime());
+		} catch (NullPointerException | NumberFormatException e) {
+			throw new ActivitiException(String.format(
+					"time (%s) format error or null.", element.getTime()));
 		}
 
 		return new TemperatureDeclarationImpl(condition, mode,
-				TemperatureStartEventJobHandler.TYPE, element.getId());
+				TemperatureStartEventJobHandler.TYPE, element.getId(), time);
 	}
 
 }

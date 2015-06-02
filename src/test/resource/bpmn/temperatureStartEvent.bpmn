@@ -6,10 +6,11 @@
       	<condition>35</condition>
         <mode>greater</mode>
         <id>TEMP-S-01</id>
+        <time>2</time>
       </temperatureEventDefinition>
     </startEvent>
     <scriptTask id="scripttask1" name="Script Task" scriptFormat="groovy" activiti:autoStoreVariables="false">
-      <script>out.println(temperature);</script>
+      <script>out.println(temperatures);</script>
     </scriptTask>
     <sequenceFlow id="flow1" sourceRef="timerstartevent1" targetRef="scripttask1"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>

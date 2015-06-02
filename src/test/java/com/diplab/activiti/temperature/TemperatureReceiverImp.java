@@ -1,6 +1,6 @@
 package com.diplab.activiti.temperature;
 
-public class TemperatureReceiverImp implements TemperatureReceiver {
+public class TemperatureReceiverImp extends TemperatureReceiver {
 
 	private String id = "TEMP-S-01";
 

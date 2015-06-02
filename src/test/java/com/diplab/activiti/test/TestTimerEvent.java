@@ -36,7 +36,7 @@ public class TestTimerEvent {
 						System.out.println("HI");
 						TemperatureDeclarationImpl declaration = new TemperatureDeclarationImpl(
 								35, TemperatureMode.EQUAL,
-								TemperatureStartEventJobHandler.TYPE, "2");
+								TemperatureStartEventJobHandler.TYPE, "2", 1);
 						new TemperatureEntity(declaration, null).insert();
 
 						return null;

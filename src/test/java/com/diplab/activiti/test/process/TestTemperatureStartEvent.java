@@ -7,7 +7,7 @@ import com.diplab.activiti.engine.impl.cfg.DipProcessEngineConfiguration;
 import com.diplab.activiti.temperature.TemperatureReceiver;
 import com.diplab.activiti.temperature.TemperatureReceiverImp;
 
-public class TestSmokeId {
+public class TestTemperatureStartEvent {
 
 	public static void main(String[] args) throws InterruptedException {
 		ProcessEngineConfigurationImpl config = new DipProcessEngineConfiguration();
@@ -22,7 +22,7 @@ public class TestSmokeId {
 		
 		processEngine.getRepositoryService().createDeployment()
 				.disableSchemaValidation().disableBpmnValidation()
-				.addClasspathResource("bpmn/smokeID.bpmn").deploy();
+				.addClasspathResource("bpmn/temperatureStartEvent.bpmn").deploy();
 
 	}
 }

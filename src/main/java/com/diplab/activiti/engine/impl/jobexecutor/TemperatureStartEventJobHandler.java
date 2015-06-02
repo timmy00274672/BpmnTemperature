@@ -1,7 +1,7 @@
 package com.diplab.activiti.engine.impl.jobexecutor;
 
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.activiti.engine.ActivitiException;
@@ -16,8 +16,6 @@ import org.activiti.engine.impl.persistence.entity.ByteArrayRef;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.JobEntity;
 import org.activiti.engine.repository.ProcessDefinition;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.SerializationUtils;
 
 import com.diplab.activiti.engine.impl.persistence.entity.TemperatureEntity;
@@ -27,8 +25,8 @@ import com.diplab.activiti.temperature.TemperatureReceiver;
 public class TemperatureStartEventJobHandler implements JobHandler {
 	public static final String TYPE = "temperature-start-event";
 
-	private Logger logger = LoggerFactory
-			.getLogger(TemperatureStartEventJobHandler.class);
+	// private Logger logger = LoggerFactory
+	// .getLogger(TemperatureStartEventJobHandler.class);
 
 	@Override
 	public void execute(JobEntity job, String configuration,
@@ -43,9 +41,6 @@ public class TemperatureStartEventJobHandler implements JobHandler {
 			throw new ActivitiException(String.format(
 					"%s sensor is not presenting yet", entity.getSensorId()));
 		}
-		Temperature temperature = receiver.getTemperature();
-		logger.info(String.format("get Temperature = %f from %s",
-				temperature.getTemperature(), entity.getSensorId()));
 
 		DeploymentManager deploymentCache = Context
 				.getProcessEngineConfiguration().getDeploymentManager();
@@ -66,9 +61,15 @@ public class TemperatureStartEventJobHandler implements JobHandler {
 								ActivitiEventType.TIMER_FIRED, job));
 			}
 
-			Map<String, Object> variables = new HashMap<String, Object>();
-			variables.put("temperature", Arrays.<Temperature>asList(receiver.getTemperature()));
-			new StartProcessInstanceCmd<Object>(null, processDefinition.getId(), null, variables ).execute(commandContext);
+			List<Temperature> temperatures = receiver.getTemperatures();
+			if (entity.prepareIsSatisfy().isSatisfy(temperatures)) {
+
+				Map<String, Object> variables = new HashMap<String, Object>();
+				variables.put("temperatures", temperatures);
+				new StartProcessInstanceCmd<Object>(null,
+						processDefinition.getId(), null, variables)
+						.execute(commandContext);
+			}
 		}
 	}
 

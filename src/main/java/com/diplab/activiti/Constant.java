@@ -9,6 +9,7 @@ import com.diplab.activiti.bpmn.converter.child.ConditionParser;
 import com.diplab.activiti.bpmn.converter.child.IdParser;
 import com.diplab.activiti.bpmn.converter.child.ModeParser;
 import com.diplab.activiti.bpmn.converter.child.TemperatureEventDefinitionParser;
+import com.diplab.activiti.bpmn.converter.child.TimeParser;
 
 public class Constant {
 	public enum TemperatureMode {
@@ -24,6 +25,7 @@ public class Constant {
 	public static final String ATTRIBUTE_MODE = "mode";
 	public static final String ATTRIBUTE_CONDITION = "condition";
 	public static final String ATTRIBUTE_ID = "id";
+	public static final String ATTRIBUTE_TIME = "time";
 
 	public static final String ELEMENT_TEMPERATURE_EVENT_DEFINITION = "temperatureEventDefinition";
 	public static final String PROPERTYNAME_START_TEMP = "property-start-temp"; // List<TemperatureDeclarationImpl>
@@ -34,7 +36,7 @@ public class Constant {
 		DIP_PARSER = new HashMap<String, BaseChildElementParser>();
 		BaseChildElementParser[] parsers = new BaseChildElementParser[] {
 				new TemperatureEventDefinitionParser(), new ModeParser(),
-				new ConditionParser(), new IdParser() };
+				new ConditionParser(), new IdParser(), new TimeParser() };
 
 		for (BaseChildElementParser parser : parsers) {
 			DIP_PARSER.put(parser.getElementName(), parser);
