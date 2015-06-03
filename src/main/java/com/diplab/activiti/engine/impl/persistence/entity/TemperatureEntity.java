@@ -31,6 +31,7 @@ public class TemperatureEntity extends JobEntity {
 	private String sensorId;
 	private String self;
 	private int time;
+
 	public TemperatureEntity() {
 
 	}
@@ -121,6 +122,8 @@ public class TemperatureEntity extends JobEntity {
 			return (x) -> {
 				double sum = 0;
 				int numOfRecorder = 0;
+				if (x.size() < time)
+					return false;
 				for (Temperature temperature : x) {
 					numOfRecorder++;
 					sum += temperature.getTemperature();
@@ -137,6 +140,8 @@ public class TemperatureEntity extends JobEntity {
 			return (x) -> {
 				double sum = 0;
 				int numOfRecorder = 0;
+				if (x.size() < time)
+					return false;
 				for (Temperature temperature : x) {
 					numOfRecorder++;
 					sum += temperature.getTemperature();
@@ -152,6 +157,8 @@ public class TemperatureEntity extends JobEntity {
 			return (x) -> {
 				double sum = 0;
 				int numOfRecorder = 0;
+				if (x.size() < time)
+					return false;
 				for (Temperature temperature : x) {
 					numOfRecorder++;
 					sum += temperature.getTemperature();
