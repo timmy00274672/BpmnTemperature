@@ -36,7 +36,7 @@ public class DiplabStartEventXMLConverter extends StartEventXMLConverter {
 						ATTRIBUTE_EVENT_START_INITIATOR));
 		startEvent.setFormKey(formKey);
 
-		// Add our own parser > like DiplabEventDefinitionParser
+		// Add our own parser > like TemperatureEventDefinitionParser
 		parseChildElements(getXMLElementName(), startEvent,
 				Constant.DIP_PARSER, model, xtr);
 

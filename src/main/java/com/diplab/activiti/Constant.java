@@ -28,8 +28,11 @@ public class Constant {
 	public static final String ATTRIBUTE_TIME = "time";
 
 	public static final String ELEMENT_TEMPERATURE_EVENT_DEFINITION = "temperatureEventDefinition";
+	public static final String ELEMENT_TASK_READTEMP = "reatTemperatureTask";
+	
 	public static final String PROPERTYNAME_START_TEMP = "property-start-temp"; // List<TemperatureDeclarationImpl>
 
+	
 	public static Map<String, BaseChildElementParser> DIP_PARSER;
 
 	static {

@@ -19,8 +19,10 @@ import org.activiti.engine.impl.util.ReflectUtil;
 import org.activiti.engine.parse.BpmnParseHandler;
 
 import com.diplab.activiti.bpmn.converter.DiplabStartEventXMLConverter;
+import com.diplab.activiti.bpmn.converter.ReadTemperatureTaskXMLConverter;
 import com.diplab.activiti.engine.impl.bpmn.deployer.DiplabBpmnDeployer;
 import com.diplab.activiti.engine.impl.bpmn.parser.handler.DiplabStartEventParserHandler;
+import com.diplab.activiti.engine.impl.bpmn.parser.handler.ReadTemperatureTaskParserHandler;
 import com.diplab.activiti.engine.impl.bpmn.parser.handler.TemperatureEventDefinitionParserHandler;
 import com.diplab.activiti.engine.impl.jobexecutor.TemperatureStartEventJobHandler;
 
@@ -29,16 +31,19 @@ public class DipProcessEngineConfiguration extends
 
 	static {
 		BpmnXMLConverter.addConverter(new DiplabStartEventXMLConverter());
+		BpmnXMLConverter.addConverter(new ReadTemperatureTaskXMLConverter());
 	}
 
 	public DipProcessEngineConfiguration() {
 		this.setCustomDefaultBpmnParseHandlers(Arrays
 				.<BpmnParseHandler> asList(new DiplabStartEventParserHandler()));
 
-		this.setPostBpmnParseHandlers(Arrays
-				.<BpmnParseHandler> asList(new TemperatureEventDefinitionParserHandler()));
-		
-		this.setCustomJobHandlers(Arrays.<JobHandler> asList(new TemperatureStartEventJobHandler()));
+		this.setPostBpmnParseHandlers(Arrays.<BpmnParseHandler> asList(
+				new TemperatureEventDefinitionParserHandler(),
+				new ReadTemperatureTaskParserHandler()));
+
+		this.setCustomJobHandlers(Arrays
+				.<JobHandler> asList(new TemperatureStartEventJobHandler()));
 
 	}
 
