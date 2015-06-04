@@ -18,14 +18,12 @@ public class ReadTemperatureTaskXMLConverter extends BaseBpmnXMLConverter {
 
 	@Override
 	protected Class<? extends BaseElement> getBpmnElementType() {
-		// TODO Auto-generated method stub
-		return null;
+		return ReadTemperatureTask.class;
 	}
 
 	@Override
 	protected BaseElement convertXMLToElement(XMLStreamReader xtr,
 			BpmnModel model) throws Exception {
-		// TODO Auto-generated method stub
 		ReadTemperatureTask readTemperatureTask = null;
 		readTemperatureTask = new ReadTemperatureTask();
 

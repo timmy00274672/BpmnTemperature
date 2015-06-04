@@ -12,6 +12,7 @@ import org.activiti.engine.delegate.event.impl.ActivitiEventBuilder;
 import org.activiti.engine.impl.bpmn.deployer.BpmnDeployer;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
+import org.activiti.engine.impl.cmd.CancelJobsCmd;
 import org.activiti.engine.impl.cmd.DeploymentSettings;
 import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.impl.db.DbSqlSession;
@@ -22,11 +23,13 @@ import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntityManage
 import org.activiti.engine.impl.persistence.entity.ResourceEntity;
 import org.activiti.engine.impl.persistence.entity.TimerEntity;
 import org.activiti.engine.impl.util.IoUtil;
+import org.activiti.engine.runtime.Job;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.diplab.activiti.Constant;
 import com.diplab.activiti.engine.impl.jobexecutor.TemperatureDeclarationImpl;
+import com.diplab.activiti.engine.impl.jobexecutor.TemperatureStartEventJobHandler;
 import com.diplab.activiti.engine.impl.persistence.entity.TemperatureEntity;
 
 public class DiplabBpmnDeployer extends BpmnDeployer {
@@ -41,8 +44,7 @@ public class DiplabBpmnDeployer extends BpmnDeployer {
 		if (tempDeclarations != null) {
 			for (TemperatureDeclarationImpl temperatureDeclarationImpl : tempDeclarations) {
 				TemperatureEntity temperatureEntity = new TemperatureEntity(
-						temperatureDeclarationImpl,processDefinition
-						.getId());
+						temperatureDeclarationImpl, processDefinition.getId());
 				temperatureEntity.insert();
 			}
 		}
@@ -303,7 +305,15 @@ public class DiplabBpmnDeployer extends BpmnDeployer {
 
 	private void removeObsoleteTemperatures(
 			ProcessDefinitionEntity processDefinition) {
-		// TODO Auto-generated method stub
+		List<Job> jobsToDelete = Context
+				.getCommandContext()
+				.getJobEntityManager()
+				.findJobsByConfiguration(TemperatureStartEventJobHandler.TYPE,
+						processDefinition.getKey());
+
+		for (Job job : jobsToDelete) {
+			new CancelJobsCmd(job.getId()).execute(Context.getCommandContext());
+		}
 	}
 
 	private void scheduleTimers(List<TimerEntity> timers) {
