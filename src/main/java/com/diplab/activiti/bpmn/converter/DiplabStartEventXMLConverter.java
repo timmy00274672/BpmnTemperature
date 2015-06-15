@@ -10,7 +10,7 @@ import org.activiti.bpmn.model.StartEvent;
 import org.activiti.bpmn.model.alfresco.AlfrescoStartEvent;
 import org.apache.commons.lang3.StringUtils;
 
-import com.diplab.activiti.temperature.Constant;
+import com.diplab.activiti.Constant;
 
 public class DiplabStartEventXMLConverter extends StartEventXMLConverter {
 
@@ -36,7 +36,7 @@ public class DiplabStartEventXMLConverter extends StartEventXMLConverter {
 						ATTRIBUTE_EVENT_START_INITIATOR));
 		startEvent.setFormKey(formKey);
 
-		// Add our own parser > like DiplabEventDefinitionParser
+		// Add our own parser > like TemperatureEventDefinitionParser
 		parseChildElements(getXMLElementName(), startEvent,
 				Constant.DIP_PARSER, model, xtr);
 

@@ -7,14 +7,14 @@ import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 
 import com.diplab.activiti.Constant;
-import com.diplab.activiti.bpmn.model.SwitchTask;
+import com.diplab.activiti.bpmn.model.ReadTemperatureTask;
 import com.diplab.activiti.bpmn.model.TemperatureEventDefinition;
 
-public class ModeParser extends BaseChildElementParser {
+public class IdParser extends BaseChildElementParser {
 
 	@Override
 	public String getElementName() {
-		return Constant.ATTRIBUTE_MODE;
+		return Constant.ATTRIBUTE_ID;
 	}
 
 	@Override
@@ -23,9 +23,12 @@ public class ModeParser extends BaseChildElementParser {
 
 		if (parentElement instanceof TemperatureEventDefinition) {
 			TemperatureEventDefinition eventDefinition = (TemperatureEventDefinition) parentElement;
-			eventDefinition.setMode(xtr.getElementText());
-		} else if (parentElement instanceof SwitchTask) {
-			((SwitchTask) parentElement).setMode(xtr.getElementText());
+			eventDefinition.setId(xtr.getElementText());
+			// TODO change id -> sensor_id
+		} else if (parentElement instanceof ReadTemperatureTask) {
+			ReadTemperatureTask temperatureTask = (ReadTemperatureTask) parentElement;
+			temperatureTask.setSensorId(xtr.getElementText());
+
 		}
 	}
 
