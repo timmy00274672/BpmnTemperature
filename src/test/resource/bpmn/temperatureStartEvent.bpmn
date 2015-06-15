@@ -6,7 +6,7 @@
       	<condition>35</condition>
         <mode>greater</mode>
         <id>TEMP-S-01</id>
-        <time>2</time>
+        <time>1</time>
       </temperatureEventDefinition>
     </startEvent>
     <scriptTask id="scripttask1" name="Script Task" scriptFormat="groovy" activiti:autoStoreVariables="false">

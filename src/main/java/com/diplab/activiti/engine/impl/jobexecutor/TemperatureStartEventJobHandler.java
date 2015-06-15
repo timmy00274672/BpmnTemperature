@@ -19,6 +19,7 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.springframework.util.SerializationUtils;
 
 import com.diplab.activiti.engine.impl.persistence.entity.TemperatureEntity;
+import com.diplab.device.temperature.IsSatisfy;
 import com.diplab.device.temperature.Temperature;
 import com.diplab.device.temperature.TemperatureReceiver;
 
@@ -62,7 +63,8 @@ public class TemperatureStartEventJobHandler implements JobHandler {
 			}
 
 			List<Temperature> temperatures = receiver.getTemperatures();
-			if (entity.prepareIsSatisfy().isSatisfy(temperatures)) {
+			if (IsSatisfy.prepareIsSatisfy(entity.getMode(), entity.getTimes(),
+					entity.getCondition()).isSatisfy(temperatures)) {
 
 				Map<String, Object> variables = new HashMap<String, Object>();
 				variables.put("temperatures", temperatures);

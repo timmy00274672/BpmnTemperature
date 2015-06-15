@@ -14,10 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.diplab.activiti.Constant;
-import com.diplab.activiti.Constant.TemperatureMode;
 import com.diplab.activiti.bpmn.model.TemperatureEventDefinition;
 import com.diplab.activiti.engine.impl.jobexecutor.TemperatureDeclarationImpl;
 import com.diplab.activiti.engine.impl.jobexecutor.TemperatureStartEventJobHandler;
+import com.diplab.device.RecordMode;
 
 public class TemperatureEventDefinitionParserHandler extends
 		AbstractBpmnParseHandler<TemperatureEventDefinition> {
@@ -60,9 +60,9 @@ public class TemperatureEventDefinitionParserHandler extends
 			TemperatureEventDefinition element) {
 		double condition;
 		int time;
-		TemperatureMode mode = null;
+		RecordMode mode = null;
 
-		for (TemperatureMode mode2 : TemperatureMode.values()) {
+		for (RecordMode mode2 : RecordMode.values()) {
 			if (element.getMode().equalsIgnoreCase(mode2.calendarName))
 				mode = mode2;
 		}

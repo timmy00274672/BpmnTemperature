@@ -6,11 +6,11 @@ import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
 
-import com.diplab.activiti.Constant.TemperatureMode;
 import com.diplab.activiti.engine.impl.cfg.DipProcessEngineConfiguration;
 import com.diplab.activiti.engine.impl.jobexecutor.TemperatureDeclarationImpl;
 import com.diplab.activiti.engine.impl.jobexecutor.TemperatureStartEventJobHandler;
 import com.diplab.activiti.engine.impl.persistence.entity.TemperatureEntity;
+import com.diplab.device.RecordMode;
 
 public class InsertJobEntity {
 
@@ -28,7 +28,7 @@ public class InsertJobEntity {
 					@Override
 					public Void execute(CommandContext commandContext) {
 						TemperatureDeclarationImpl declaration = new TemperatureDeclarationImpl(
-								23, TemperatureMode.EQUAL,
+								23, RecordMode.EQUAL,
 								TemperatureStartEventJobHandler.TYPE, "2", 1);
 						Context.getCommandContext()
 								.getDbSqlSession()

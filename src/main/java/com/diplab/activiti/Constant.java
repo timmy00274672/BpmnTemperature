@@ -13,15 +13,7 @@ import com.diplab.activiti.bpmn.converter.child.TemperatureEventDefinitionParser
 import com.diplab.activiti.bpmn.converter.child.TimeParser;
 
 public class Constant {
-	public enum TemperatureMode {
-		Greater("greater"), LESSER("lesser"), EQUAL("equal"), NONE("");
 
-		public final String calendarName;
-
-		TemperatureMode(String caledarName) {
-			this.calendarName = caledarName;
-		}
-	}
 
 	public static final String ATTRIBUTE_MODE = "mode";
 	public static final String ATTRIBUTE_CONDITION = "condition";

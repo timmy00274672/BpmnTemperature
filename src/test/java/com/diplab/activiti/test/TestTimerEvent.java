@@ -6,10 +6,10 @@ import org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
 
-import com.diplab.activiti.Constant.TemperatureMode;
 import com.diplab.activiti.engine.impl.jobexecutor.TemperatureDeclarationImpl;
 import com.diplab.activiti.engine.impl.jobexecutor.TemperatureStartEventJobHandler;
 import com.diplab.activiti.engine.impl.persistence.entity.TemperatureEntity;
+import com.diplab.device.RecordMode;
 
 public class TestTimerEvent {
 
@@ -35,7 +35,7 @@ public class TestTimerEvent {
 					public Void execute(CommandContext commandContext) {
 						System.out.println("HI");
 						TemperatureDeclarationImpl declaration = new TemperatureDeclarationImpl(
-								35, TemperatureMode.EQUAL,
+								35, RecordMode.EQUAL,
 								TemperatureStartEventJobHandler.TYPE, "2", 1);
 						new TemperatureEntity(declaration, null).insert();
 

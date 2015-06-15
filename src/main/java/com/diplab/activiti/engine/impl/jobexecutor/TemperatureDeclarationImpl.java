@@ -2,19 +2,19 @@ package com.diplab.activiti.engine.impl.jobexecutor;
 
 import java.io.Serializable;
 
-import com.diplab.activiti.Constant.TemperatureMode;
+import com.diplab.device.RecordMode;
 
 public class TemperatureDeclarationImpl implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	protected double condition;
-	protected TemperatureMode mode;
+	protected RecordMode mode;
 	protected String jobHandlerType;
 	protected String sensorId;
 	protected int time;
 
-	public TemperatureDeclarationImpl(double condition, TemperatureMode mode,
+	public TemperatureDeclarationImpl(double condition, RecordMode mode,
 			String jobHandlerType, String id, int time) {
 		super();
 		this.condition = condition;
@@ -32,7 +32,7 @@ public class TemperatureDeclarationImpl implements Serializable {
 		return jobHandlerType;
 	}
 
-	public TemperatureMode getMode() {
+	public RecordMode getMode() {
 		return mode;
 	}
 
@@ -52,7 +52,7 @@ public class TemperatureDeclarationImpl implements Serializable {
 		this.jobHandlerType = jobHandlerType;
 	}
 
-	public void setMode(TemperatureMode mode) {
+	public void setMode(RecordMode mode) {
 		this.mode = mode;
 	}
 

@@ -2,22 +2,17 @@ package com.diplab.activiti.engine.impl.persistence.entity;
 
 import java.util.Calendar;
 
-import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.entity.ByteArrayRef;
 import org.activiti.engine.impl.persistence.entity.JobEntity;
 import org.springframework.util.SerializationUtils;
 
-import com.diplab.activiti.Constant.TemperatureMode;
 import com.diplab.activiti.engine.impl.jobexecutor.TemperatureDeclarationImpl;
-import com.diplab.device.temperature.IsSatisfy;
-import com.diplab.device.temperature.Temperature;
+import com.diplab.device.RecordMode;
 
 public class TemperatureEntity extends JobEntity {
 
 	private static final int INTERVAL_OF_SCANNING = 10;
-
-	public static final double TOLERANCE = 0.1;
 
 	// private Logger logger = LoggerFactory.getLogger(TemperatureEntity.class);
 	/**
@@ -27,7 +22,7 @@ public class TemperatureEntity extends JobEntity {
 
 	private double condition;
 
-	private TemperatureMode mode;
+	private RecordMode mode;
 	private String sensorId;
 	private String self;
 	private int time;
@@ -86,7 +81,7 @@ public class TemperatureEntity extends JobEntity {
 		return condition;
 	}
 
-	public TemperatureMode getMode() {
+	public RecordMode getMode() {
 		return mode;
 	}
 
@@ -116,70 +111,6 @@ public class TemperatureEntity extends JobEntity {
 		super.insert();
 	}
 
-	public IsSatisfy prepareIsSatisfy() {
-		switch (mode) {
-		case EQUAL:
-			return (x) -> {
-				double sum = 0;
-				int numOfRecorder = 0;
-				if (x.size() < time)
-					return false;
-				for (Temperature temperature : x) {
-					numOfRecorder++;
-					sum += temperature.getTemperature();
-					if (numOfRecorder == time)
-						break;
-				}
-				if (numOfRecorder == 0)
-					return false;
-				sum = sum / numOfRecorder;
-				return Math.abs(sum - condition) < TOLERANCE;
-
-			};
-		case Greater:
-			return (x) -> {
-				double sum = 0;
-				int numOfRecorder = 0;
-				if (x.size() < time)
-					return false;
-				for (Temperature temperature : x) {
-					numOfRecorder++;
-					sum += temperature.getTemperature();
-					if (numOfRecorder == time)
-						break;
-				}
-				if (numOfRecorder == 0)
-					return false;
-				sum = sum / numOfRecorder;
-				return sum - condition > 0;
-			};
-		case LESSER:
-			return (x) -> {
-				double sum = 0;
-				int numOfRecorder = 0;
-				if (x.size() < time)
-					return false;
-				for (Temperature temperature : x) {
-					numOfRecorder++;
-					sum += temperature.getTemperature();
-					if (numOfRecorder == time)
-						break;
-				}
-				if (numOfRecorder == 0)
-					return false;
-				sum = sum / numOfRecorder;
-				return sum - condition < 0;
-			};
-		case NONE:
-			return (x) -> {
-				return true;
-			};
-		default:
-			throw new ActivitiException(String.format("%s is not surpport",
-					mode));
-		}
-	}
-
 	private void schedule(String self2) {
 		ByteArrayRef ref = new ByteArrayRef(self2);
 		TemperatureEntity entity = (TemperatureEntity) SerializationUtils
@@ -193,7 +124,7 @@ public class TemperatureEntity extends JobEntity {
 		this.condition = condition;
 	}
 
-	public void setMode(TemperatureMode mode) {
+	public void setMode(RecordMode mode) {
 		this.mode = mode;
 	}
 
