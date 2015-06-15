@@ -7,9 +7,6 @@ import org.activiti.bpmn.converter.BaseBpmnXMLConverter;
 import org.activiti.bpmn.converter.util.BpmnXMLUtil;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.bpmn.model.StartEvent;
-import org.activiti.bpmn.model.alfresco.AlfrescoStartEvent;
-import org.apache.commons.lang3.StringUtils;
 
 import com.diplab.activiti.Constant;
 import com.diplab.activiti.bpmn.model.ReadTemperatureTask;
