@@ -8,7 +8,7 @@ import org.activiti.engine.impl.pvm.process.ActivityImpl;
 
 import com.diplab.activiti.Constant;
 import com.diplab.activiti.bpmn.model.ReadTemperatureTask;
-import com.diplab.activiti.temperature.TemperatureReceiver;
+import com.diplab.device.temperature.TemperatureReceiver;
 
 public class ReadTemperatureTaskParserHandler extends
 		AbstractBpmnParseHandler<ReadTemperatureTask> {

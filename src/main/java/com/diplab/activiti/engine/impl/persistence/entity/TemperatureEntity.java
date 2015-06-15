@@ -10,8 +10,8 @@ import org.springframework.util.SerializationUtils;
 
 import com.diplab.activiti.Constant.TemperatureMode;
 import com.diplab.activiti.engine.impl.jobexecutor.TemperatureDeclarationImpl;
-import com.diplab.activiti.temperature.IsSatisfy;
-import com.diplab.activiti.temperature.Temperature;
+import com.diplab.device.temperature.IsSatisfy;
+import com.diplab.device.temperature.Temperature;
 
 public class TemperatureEntity extends JobEntity {
 

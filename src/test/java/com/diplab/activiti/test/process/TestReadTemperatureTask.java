@@ -4,8 +4,8 @@ import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 
 import com.diplab.activiti.engine.impl.cfg.DipProcessEngineConfiguration;
-import com.diplab.activiti.temperature.TemperatureReceiver;
-import com.diplab.activiti.temperature.TemperatureReceiverImp;
+import com.diplab.device.temperature.TemperatureReceiver;
+import com.diplab.device.temperature.TemperatureReceiverImp;
 
 public class TestReadTemperatureTask {
 

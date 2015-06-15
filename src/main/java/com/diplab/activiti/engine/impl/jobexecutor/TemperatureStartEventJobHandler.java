@@ -19,8 +19,8 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.springframework.util.SerializationUtils;
 
 import com.diplab.activiti.engine.impl.persistence.entity.TemperatureEntity;
-import com.diplab.activiti.temperature.Temperature;
-import com.diplab.activiti.temperature.TemperatureReceiver;
+import com.diplab.device.temperature.Temperature;
+import com.diplab.device.temperature.TemperatureReceiver;
 
 public class TemperatureStartEventJobHandler implements JobHandler {
 	public static final String TYPE = "temperature-start-event";

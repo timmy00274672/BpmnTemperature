@@ -1,4 +1,4 @@
-package com.diplab.activiti.temperature;
+package com.diplab.device.temperature;
 
 import java.io.Serializable;
 import java.util.Date;

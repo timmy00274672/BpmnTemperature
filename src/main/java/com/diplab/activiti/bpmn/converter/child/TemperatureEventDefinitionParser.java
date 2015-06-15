@@ -33,8 +33,8 @@ public class TemperatureEventDefinitionParser extends BaseChildElementParser {
 				Constant.ELEMENT_TEMPERATURE_EVENT_DEFINITION,
 				temperatureEventDefinition, xtr, Constant.DIP_PARSER, model);
 
-		((Event) parentElement).getEventDefinitions()
-				.add(temperatureEventDefinition);
+		((Event) parentElement).getEventDefinitions().add(
+				temperatureEventDefinition);
 	}
 
 }

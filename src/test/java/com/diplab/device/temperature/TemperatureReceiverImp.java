@@ -1,4 +1,7 @@
-package com.diplab.activiti.temperature;
+package com.diplab.device.temperature;
+
+import com.diplab.device.temperature.Temperature;
+import com.diplab.device.temperature.TemperatureReceiver;
 
 public class TemperatureReceiverImp extends TemperatureReceiver {
 
@@ -6,7 +9,7 @@ public class TemperatureReceiverImp extends TemperatureReceiver {
 
 	public TemperatureReceiverImp() {
 	}
-	
+
 	public TemperatureReceiverImp(String id) {
 		this.id = id;
 	}

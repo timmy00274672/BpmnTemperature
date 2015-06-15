@@ -7,38 +7,34 @@ import org.activiti.bpmn.converter.BaseBpmnXMLConverter;
 import org.activiti.bpmn.converter.util.BpmnXMLUtil;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.bpmn.model.StartEvent;
-import org.activiti.bpmn.model.alfresco.AlfrescoStartEvent;
-import org.apache.commons.lang3.StringUtils;
 
 import com.diplab.activiti.Constant;
-import com.diplab.activiti.bpmn.model.ReadTemperatureTask;
+import com.diplab.activiti.bpmn.model.SwitchTask;
 
-public class ReadTemperatureTaskXMLConverter extends BaseBpmnXMLConverter {
+public class SwitchTaskXMLConverter extends BaseBpmnXMLConverter {
 
 	@Override
 	protected BaseElement convertXMLToElement(XMLStreamReader xtr,
 			BpmnModel model) throws Exception {
-		ReadTemperatureTask readTemperatureTask = null;
-		readTemperatureTask = new ReadTemperatureTask();
+		SwitchTask switchTask = new SwitchTask();
 
-		BpmnXMLUtil.addXMLLocation(readTemperatureTask, xtr);
+		BpmnXMLUtil.addXMLLocation(switchTask, xtr);
 
 		// Add our own parser > like idParser
-		parseChildElements(getXMLElementName(), readTemperatureTask,
+		parseChildElements(getXMLElementName(), switchTask,
 				Constant.DIP_PARSER, model, xtr);
 
-		return readTemperatureTask;
+		return switchTask;
 	}
 
 	@Override
 	protected Class<? extends BaseElement> getBpmnElementType() {
-		return ReadTemperatureTask.class;
+		return SwitchTask.class;
 	}
 
 	@Override
 	protected String getXMLElementName() {
-		return Constant.ELEMENT_TASK_READTEMP;
+		return Constant.ELEMENT_TASK_SWITCH;
 	}
 
 	@Override

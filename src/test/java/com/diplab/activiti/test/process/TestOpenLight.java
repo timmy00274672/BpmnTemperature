@@ -4,28 +4,26 @@ import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 
 import com.diplab.activiti.engine.impl.cfg.DipProcessEngineConfiguration;
-import com.diplab.device.temperature.TemperatureReceiver;
-import com.diplab.device.temperature.TemperatureReceiverImp;
+import com.diplab.device.swtich.SimulateController;
+import com.diplab.device.swtich.SwitchController;
 
-public class TestTemperatureStartEvent {
+public class TestOpenLight {
 
 	public static void main(String[] args) throws InterruptedException {
 		ProcessEngineConfigurationImpl config = new DipProcessEngineConfiguration();
 		config.setJdbcUrl("jdbc:h2:tcp://localhost/Activiti");
 		config.setDatabaseSchemaUpdate("drop-create");
-		config.setJobExecutorActivate(true);
+		// config.setJobExecutorActivate(true);
 
 		final ProcessEngine processEngine = config.buildProcessEngine();
 
-		TemperatureReceiver
-				.addReceiver(new TemperatureReceiverImp("TEMP-S-01"));
-		TemperatureReceiver
-				.addReceiver(new TemperatureReceiverImp("TEMP-S-02"));
+		SwitchController.addController(new SimulateController("light-s-01"));
 
 		processEngine.getRepositoryService().createDeployment()
 				.disableSchemaValidation().disableBpmnValidation()
-				.addClasspathResource("bpmn/temperatureStartEvent.bpmn")
-				.deploy();
+				.addClasspathResource("bpmn/turnOnLight.bpmn").deploy();
 
+		processEngine.getRuntimeService()
+				.startProcessInstanceByKey("myProcess");
 	}
 }
