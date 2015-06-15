@@ -5,42 +5,46 @@
 	xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
 	typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
 	targetNamespace="http://www.activiti.org/test">
-	<process id="myProcess" name="My process" isExecutable="true">
-		<startEvent id="timerstartevent1" name="Start">
-			<timerEventDefinition>
-				<timeCycle>R3/PT20S</timeCycle>
-			</timerEventDefinition>
+	<process id="smoke_start" name="smoke start when latest smoke > 200 ppm"
+		isExecutable="true">
+		<startEvent id="smoke_start_event" name="smoke &gt; 200 ppm">
+			<smokeEventDefinition>
+				<condition>200</condition>
+				<mode>greater</mode>
+				<id>smoke-S-01</id>
+				<time>1</time>
+			</smokeEventDefinition>
 		</startEvent>
-		<scriptTask id="scripttask1" name="Script Task"
+		<scriptTask id="print_message" name="message: smoke &gt; 200 ppm"
 			scriptFormat="groovy" activiti:autoStoreVariables="false">
-			<script>out.println("HI");</script>
+			<script>out.println(smokes)</script>
 		</scriptTask>
-		<sequenceFlow id="flow1" sourceRef="timerstartevent1"
-			targetRef="scripttask1"></sequenceFlow>
+		<sequenceFlow id="flow1" sourceRef="smoke_start_event"
+			targetRef="print_message"></sequenceFlow>
 		<endEvent id="endevent1" name="End"></endEvent>
-		<sequenceFlow id="flow2" sourceRef="scripttask1"
+		<sequenceFlow id="flow2" sourceRef="print_message"
 			targetRef="endevent1"></sequenceFlow>
 	</process>
 	<bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
 		<bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
-			<bpmndi:BPMNShape bpmnElement="timerstartevent1"
-				id="BPMNShape_timerstartevent1">
-				<omgdc:Bounds height="35.0" width="35.0" x="170.0" y="160.0"></omgdc:Bounds>
+			<bpmndi:BPMNShape bpmnElement="smoke_start_event"
+				id="BPMNShape_smoke_start_event">
+				<omgdc:Bounds height="35.0" width="35.0" x="120.0" y="208.0"></omgdc:Bounds>
 			</bpmndi:BPMNShape>
-			<bpmndi:BPMNShape bpmnElement="scripttask1"
-				id="BPMNShape_scripttask1">
-				<omgdc:Bounds height="55.0" width="105.0" x="270.0" y="150.0"></omgdc:Bounds>
+			<bpmndi:BPMNShape bpmnElement="print_message"
+				id="BPMNShape_print_message">
+				<omgdc:Bounds height="71.0" width="117.0" x="230.0" y="190.0"></omgdc:Bounds>
 			</bpmndi:BPMNShape>
 			<bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-				<omgdc:Bounds height="35.0" width="35.0" x="420.0" y="160.0"></omgdc:Bounds>
+				<omgdc:Bounds height="35.0" width="35.0" x="392.0" y="208.0"></omgdc:Bounds>
 			</bpmndi:BPMNShape>
 			<bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-				<omgdi:waypoint x="205.0" y="177.0"></omgdi:waypoint>
-				<omgdi:waypoint x="270.0" y="177.0"></omgdi:waypoint>
+				<omgdi:waypoint x="155.0" y="225.0"></omgdi:waypoint>
+				<omgdi:waypoint x="230.0" y="225.0"></omgdi:waypoint>
 			</bpmndi:BPMNEdge>
 			<bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
-				<omgdi:waypoint x="375.0" y="177.0"></omgdi:waypoint>
-				<omgdi:waypoint x="420.0" y="177.0"></omgdi:waypoint>
+				<omgdi:waypoint x="347.0" y="225.0"></omgdi:waypoint>
+				<omgdi:waypoint x="392.0" y="225.0"></omgdi:waypoint>
 			</bpmndi:BPMNEdge>
 		</bpmndi:BPMNPlane>
 	</bpmndi:BPMNDiagram>

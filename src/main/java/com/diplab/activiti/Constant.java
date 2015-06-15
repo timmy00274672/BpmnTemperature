@@ -6,14 +6,14 @@ import java.util.Map;
 import org.activiti.bpmn.converter.child.BaseChildElementParser;
 
 import com.diplab.activiti.bpmn.converter.child.ConditionParser;
+import com.diplab.activiti.bpmn.converter.child.DeviceIdParser;
 import com.diplab.activiti.bpmn.converter.child.IdParser;
 import com.diplab.activiti.bpmn.converter.child.ModeParser;
-import com.diplab.activiti.bpmn.converter.child.DeviceIdParser;
+import com.diplab.activiti.bpmn.converter.child.SmokeEventDefinitionParser;
 import com.diplab.activiti.bpmn.converter.child.TemperatureEventDefinitionParser;
 import com.diplab.activiti.bpmn.converter.child.TimeParser;
 
 public class Constant {
-
 
 	public static final String ATTRIBUTE_MODE = "mode";
 	public static final String ATTRIBUTE_CONDITION = "condition";
@@ -22,6 +22,7 @@ public class Constant {
 	public static final String ATTRIBUTE_DEVICE_ID = "device_id";
 
 	public static final String ELEMENT_TEMPERATURE_EVENT_DEFINITION = "temperatureEventDefinition";
+	public static final String ELEMENT_SMOKE_EVENT_DEFINITION = "smokeEventDefinition";
 	public static final String ELEMENT_TASK_READTEMP = "reatTemperatureTask";
 	public static final String ELEMENT_TASK_SWITCH = "switchTask";
 
@@ -32,7 +33,8 @@ public class Constant {
 	static {
 		DIP_PARSER = new HashMap<String, BaseChildElementParser>();
 		BaseChildElementParser[] parsers = new BaseChildElementParser[] {
-				new TemperatureEventDefinitionParser(), new ModeParser(),
+				new TemperatureEventDefinitionParser(),
+				new SmokeEventDefinitionParser(), new ModeParser(),
 				new ConditionParser(), new IdParser(), new TimeParser(),
 				new DeviceIdParser() };
 

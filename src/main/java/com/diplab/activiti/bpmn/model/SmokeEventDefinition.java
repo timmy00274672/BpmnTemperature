@@ -2,16 +2,16 @@ package com.diplab.activiti.bpmn.model;
 
 import org.activiti.bpmn.model.EventDefinition;
 
-public class TemperatureEventDefinition extends EventDefinition {
+public class SmokeEventDefinition extends EventDefinition {
 
 	protected String mode;
-	protected String condition;
+	protected String condition; // ?ppm
 	protected String time = "10";// defautl : 10s
-	protected String sensorId; // indicate which device
+	protected String sensor_id; // indicate which device
 
 	@Override
 	public EventDefinition clone() {
-		TemperatureEventDefinition clone = new TemperatureEventDefinition();
+		SmokeEventDefinition clone = new SmokeEventDefinition();
 		clone.setValues(this);
 		return null;
 	}
@@ -21,7 +21,7 @@ public class TemperatureEventDefinition extends EventDefinition {
 	}
 
 	public String getSensorId() {
-		return sensorId;
+		return sensor_id;
 	}
 
 	public String getMode() {
@@ -37,7 +37,7 @@ public class TemperatureEventDefinition extends EventDefinition {
 	}
 
 	public void setSensorId(String id) {
-		this.sensorId = id;
+		this.sensor_id = id;
 	}
 
 	public void setMode(String mode) {
@@ -48,7 +48,7 @@ public class TemperatureEventDefinition extends EventDefinition {
 		this.time = time;
 	}
 
-	public void setValues(TemperatureEventDefinition otherDefinition) {
+	public void setValues(SmokeEventDefinition otherDefinition) {
 		super.setValues(otherDefinition);
 		setMode(otherDefinition.getMode());
 		setCondition(otherDefinition.getCondition());
@@ -58,8 +58,9 @@ public class TemperatureEventDefinition extends EventDefinition {
 
 	@Override
 	public String toString() {
-		return "TemperatureEventDefinition [mode=" + mode + ", condition="
-				+ condition + ", time=" + time + ", sensorId=" + sensorId + "]";
+		return "SmokeEventDefinition [mode=" + mode + ", condition="
+				+ condition + ", time=" + time + ", sensor_id=" + sensor_id
+				+ "]";
 	}
 
 }

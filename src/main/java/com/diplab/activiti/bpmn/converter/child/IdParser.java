@@ -8,8 +8,10 @@ import org.activiti.bpmn.model.BpmnModel;
 
 import com.diplab.activiti.Constant;
 import com.diplab.activiti.bpmn.model.ReadTemperatureTask;
+import com.diplab.activiti.bpmn.model.SmokeEventDefinition;
 import com.diplab.activiti.bpmn.model.TemperatureEventDefinition;
 
+// TODO change id -> sensor_id
 public class IdParser extends BaseChildElementParser {
 
 	@Override
@@ -22,13 +24,14 @@ public class IdParser extends BaseChildElementParser {
 			BaseElement parentElement, BpmnModel model) throws Exception {
 
 		if (parentElement instanceof TemperatureEventDefinition) {
-			TemperatureEventDefinition eventDefinition = (TemperatureEventDefinition) parentElement;
-			eventDefinition.setId(xtr.getElementText());
-			// TODO change id -> sensor_id
+			((TemperatureEventDefinition) parentElement).setSensorId(xtr
+					.getElementText());
+		} else if (parentElement instanceof SmokeEventDefinition) {
+			((SmokeEventDefinition) parentElement).setSensorId(xtr
+					.getElementText());
 		} else if (parentElement instanceof ReadTemperatureTask) {
-			ReadTemperatureTask temperatureTask = (ReadTemperatureTask) parentElement;
-			temperatureTask.setSensorId(xtr.getElementText());
-
+			((ReadTemperatureTask) parentElement).setSensorId(xtr
+					.getElementText());
 		}
 	}
 
