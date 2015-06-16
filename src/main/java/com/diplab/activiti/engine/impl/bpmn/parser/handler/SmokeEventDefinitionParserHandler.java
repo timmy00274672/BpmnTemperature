@@ -13,18 +13,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.diplab.activiti.Constant;
-import com.diplab.activiti.bpmn.model.TemperatureEventDefinition;
-import com.diplab.activiti.engine.impl.jobexecutor.TemperatureDeclarationImpl;
-import com.diplab.activiti.engine.impl.jobexecutor.TemperatureStartEventJobHandler;
+import com.diplab.activiti.bpmn.model.SmokeEventDefinition;
+import com.diplab.activiti.engine.impl.jobexecutor.SmokeDeclarationImpl;
+import com.diplab.activiti.engine.impl.jobexecutor.SmokeStartEventJobHandler;
 import com.diplab.device.RecordMode;
 
-public class TemperatureEventDefinitionParserHandler extends
-		AbstractBpmnParseHandler<TemperatureEventDefinition> {
+public class SmokeEventDefinitionParserHandler extends
+		AbstractBpmnParseHandler<SmokeEventDefinition> {
 	private static final Logger LOG = LoggerFactory
-			.getLogger(TemperatureEventDefinitionParserHandler.class);
+			.getLogger(SmokeEventDefinitionParserHandler.class);
 
-	private TemperatureDeclarationImpl prepareTemperatureDeclaration(
-			TemperatureEventDefinition element) {
+	private SmokeDeclarationImpl prepareSmokeDeclaration(
+			SmokeEventDefinition element) {
 		double condition;
 		int time;
 		RecordMode mode = null;
@@ -59,41 +59,40 @@ public class TemperatureEventDefinitionParserHandler extends
 					element.getTime()));
 		}
 
-		return new TemperatureDeclarationImpl(condition, mode,
-				TemperatureStartEventJobHandler.TYPE, element.getSensorId(),
-				time);
+		return new SmokeDeclarationImpl(condition, mode,
+				SmokeStartEventJobHandler.TYPE, element.getSensorId(), time);
 	}
 
 	@Override
 	protected void executeParse(BpmnParse bpmnParse,
-			TemperatureEventDefinition element) {
+			SmokeEventDefinition element) {
 
 		ActivityImpl tempActivity = bpmnParse.getCurrentActivity();
 		if (bpmnParse.getCurrentFlowElement() instanceof StartEvent) {
 
 			ProcessDefinitionEntity processDefinition = bpmnParse
 					.getCurrentProcessDefinition();
-			tempActivity.setProperty("type", "startTempEvent");
-			TemperatureDeclarationImpl tempDeclaration = prepareTemperatureDeclaration(element);
+			tempActivity.setProperty("type", "startSmokeEvent");
+			SmokeDeclarationImpl smokeDeclaration = prepareSmokeDeclaration(element);
 
 			@SuppressWarnings("unchecked")
-			List<TemperatureDeclarationImpl> tempDeclarations = (List<TemperatureDeclarationImpl>) processDefinition
-					.getProperty(Constant.PROPERTYNAME_START_TEMP);
-			if (tempDeclarations == null) {
-				tempDeclarations = new ArrayList<TemperatureDeclarationImpl>();
-				processDefinition.setProperty(Constant.PROPERTYNAME_START_TEMP,
-						tempDeclarations);
+			List<SmokeDeclarationImpl> smokeDeclarations = (List<SmokeDeclarationImpl>) processDefinition
+					.getProperty(Constant.PROPERTYNAME_START_SMOKE);
+			if (smokeDeclarations == null) {
+				smokeDeclarations = new ArrayList<SmokeDeclarationImpl>();
+				processDefinition.setProperty(
+						Constant.PROPERTYNAME_START_SMOKE, smokeDeclarations);
 			}
-			tempDeclarations.add(tempDeclaration);
+			smokeDeclarations.add(smokeDeclaration);
 
 		} else {
-			LOG.error("Only start event support temperatureEventDefinition");
+			LOG.error("Only start event support smokeEventDefinition");
 		}
 	}
 
 	@Override
 	protected Class<? extends BaseElement> getHandledType() {
-		return TemperatureEventDefinition.class;
+		return SmokeEventDefinition.class;
 	}
 
 }

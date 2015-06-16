@@ -20,12 +20,12 @@ public class SmokeEventDefinition extends EventDefinition {
 		return condition;
 	}
 
-	public String getSensorId() {
-		return sensor_id;
-	}
-
 	public String getMode() {
 		return mode;
+	}
+
+	public String getSensorId() {
+		return sensor_id;
 	}
 
 	public String getTime() {
@@ -36,12 +36,12 @@ public class SmokeEventDefinition extends EventDefinition {
 		this.condition = condition;
 	}
 
-	public void setSensorId(String id) {
-		this.sensor_id = id;
-	}
-
 	public void setMode(String mode) {
 		this.mode = mode;
+	}
+
+	public void setSensorId(String id) {
+		this.sensor_id = id;
 	}
 
 	public void setTime(String time) {

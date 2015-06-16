@@ -131,6 +131,7 @@
 			<case value="message" resultMap="messageResultMap" />
 			<case value="timer" resultMap="timerResultMap" />
 			<case value="temperature" resultMap='temperatureResultMap' />
+			<case value="smoke" resultMap='smokeResultMap' />
 		</discriminator>
 	</resultMap>
 
@@ -148,6 +149,12 @@
 
 	<resultMap id="temperatureResultMap"
 		type="com.diplab.activiti.engine.impl.persistence.entity.TemperatureEntity"
+		extends="jobResultMap">
+		<result property="self" column="HANDLER_CFG_" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="smokeResultMap"
+		type="com.diplab.activiti.engine.impl.persistence.entity.SmokeEntity"
 		extends="jobResultMap">
 		<result property="self" column="HANDLER_CFG_" jdbcType="VARCHAR" />
 	</resultMap>
@@ -559,7 +566,7 @@
 		EXCEPTION_STACK_ID_,
 		EXCEPTION_MSG_,
 		DUEDATE_,
-		
+
 		HANDLER_TYPE_,
 		HANDLER_CFG_,
 		TENANT_ID_)
@@ -578,14 +585,14 @@
 		#{exceptionByteArrayRef, typeHandler=ByteArrayRefTypeHandler},
 		#{exceptionMessage, jdbcType=VARCHAR},
 		#{duedate, jdbcType=TIMESTAMP},
-		
+
 		#{jobHandlerType, jdbcType=VARCHAR},
 		#{self, jdbcType=VARCHAR},
 		#{tenantId, jdbcType=VARCHAR}
 		)
 	</insert>
-	
-		<update id="updateTemperature"
+
+	<update id="updateTemperature"
 		parameterType="com.diplab.activiti.engine.impl.persistence.entity.TemperatureEntity">
 		update ${prefix}ACT_RU_JOB
 		<set>
@@ -607,9 +614,80 @@
 		and REV_ = #{revision,
 		jdbcType=INTEGER}
 	</update>
-	
+
 	<delete id="deleteTemperature"
 		parameterType="com.diplab.activiti.engine.impl.persistence.entity.TemperatureEntity">
+		delete from ${prefix}ACT_RU_JOB where ID_ = #{id} and
+		REV_ = #{revision}
+	</delete>
+	
+	<insert id="insertSmoke"
+		parameterType="com.diplab.activiti.engine.impl.persistence.entity.SmokeEntity">
+		insert into ${prefix}ACT_RU_JOB (
+		ID_,
+		REV_,
+		TYPE_,
+		LOCK_OWNER_,
+		LOCK_EXP_TIME_,
+		EXCLUSIVE_,
+		EXECUTION_ID_,
+		PROCESS_INSTANCE_ID_,
+		PROC_DEF_ID_,
+		RETRIES_,
+		EXCEPTION_STACK_ID_,
+		EXCEPTION_MSG_,
+		DUEDATE_,
+
+		HANDLER_TYPE_,
+		HANDLER_CFG_,
+		TENANT_ID_)
+		values (#{id, jdbcType=VARCHAR},
+		1,
+		'smoke',
+		#{lockOwner, jdbcType=VARCHAR},
+		#{lockExpirationTime,
+		jdbcType=TIMESTAMP},
+		#{exclusive, jdbcType=BOOLEAN},
+		#{executionId,
+		jdbcType=VARCHAR},
+		#{processInstanceId, jdbcType=VARCHAR},
+		#{processDefinitionId, jdbcType=VARCHAR},
+		#{retries, jdbcType=INTEGER},
+		#{exceptionByteArrayRef, typeHandler=ByteArrayRefTypeHandler},
+		#{exceptionMessage, jdbcType=VARCHAR},
+		#{duedate, jdbcType=TIMESTAMP},
+
+		#{jobHandlerType, jdbcType=VARCHAR},
+		#{self, jdbcType=VARCHAR},
+		#{tenantId, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="updateSmoke"
+		parameterType="com.diplab.activiti.engine.impl.persistence.entity.SmokeEntity">
+		update ${prefix}ACT_RU_JOB
+		<set>
+			REV_ = #{revisionNext, jdbcType=INTEGER},
+			LOCK_EXP_TIME_ =
+			#{lockExpirationTime, jdbcType=TIMESTAMP},
+			LOCK_OWNER_ = #{lockOwner,
+			jdbcType=VARCHAR},
+			RETRIES_ = #{retries, jdbcType=INTEGER},
+			EXCEPTION_STACK_ID_ = #{exceptionByteArrayRef,
+			typeHandler=ByteArrayRefTypeHandler},
+			EXCEPTION_MSG_ =
+			#{exceptionMessage, jdbcType=VARCHAR},
+			DUEDATE_ = #{duedate,
+			jdbcType=TIMESTAMP},
+			HANDLER_CFG_ = #{self, jdbcType=VARCHAR}
+		</set>
+		where ID_= #{id, jdbcType=VARCHAR}
+		and REV_ = #{revision,
+		jdbcType=INTEGER}
+	</update>
+
+	<delete id="deleteSmoke"
+		parameterType="com.diplab.activiti.engine.impl.persistence.entity.SmokeEntity">
 		delete from ${prefix}ACT_RU_JOB where ID_ = #{id} and
 		REV_ = #{revision}
 	</delete>

@@ -16,28 +16,26 @@ import org.activiti.engine.impl.persistence.entity.ByteArrayRef;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.JobEntity;
 import org.activiti.engine.repository.ProcessDefinition;
-import org.springframework.util.SerializationUtils;
+import org.apache.commons.lang3.SerializationUtils;
 
-import com.diplab.activiti.engine.impl.persistence.entity.TemperatureEntity;
+import com.diplab.activiti.engine.impl.persistence.entity.SmokeEntity;
 import com.diplab.device.IsSatisfy;
-import com.diplab.device.temperature.Temperature;
-import com.diplab.device.temperature.TemperatureReceiver;
+import com.diplab.device.smoke.Smoke;
+import com.diplab.device.smoke.SmokeReceiver;
 
-public class TemperatureStartEventJobHandler implements JobHandler {
-	public static final String TYPE = "temperature-start-event";
-
-	// private Logger logger = LoggerFactory
-	// .getLogger(TemperatureStartEventJobHandler.class);
+public class SmokeStartEventJobHandler implements JobHandler {
+	public static final String TYPE = "smoke-start-event";
 
 	@Override
 	public void execute(JobEntity job, String configuration,
 			ExecutionEntity execution, CommandContext commandContext) {
+		// TODO
 		ByteArrayRef ref = new ByteArrayRef(configuration);
-		TemperatureEntity entity = (TemperatureEntity) SerializationUtils
-				.deserialize(ref.getBytes());
+		SmokeEntity entity = (SmokeEntity) SerializationUtils.deserialize(ref
+				.getBytes());
 
-		TemperatureReceiver receiver = TemperatureReceiver
-				.getReceiverByDeviceId(entity.getSensorId());
+		SmokeReceiver receiver = SmokeReceiver.getReceiverByDeviceId(entity
+				.getSensorId());
 		if (receiver == null) {
 			throw new ActivitiException(String.format(
 					"%s sensor is not presenting yet", entity.getSensorId()));
@@ -52,7 +50,7 @@ public class TemperatureStartEventJobHandler implements JobHandler {
 
 		if (processDefinition == null) {
 			throw new ActivitiException(
-					"Could not find process definition needed for temperature start event");
+					"Could not find process definition needed for smoke start event");
 		}
 
 		if (!processDefinition.isSuspended()) {
@@ -61,14 +59,13 @@ public class TemperatureStartEventJobHandler implements JobHandler {
 						ActivitiEventBuilder.createEntityEvent(
 								ActivitiEventType.TIMER_FIRED, job));
 			}
-
-			List<Temperature> temperatures = receiver.getTemperatures();
-			if (IsSatisfy.<Temperature> prepareIsSatisfy(entity.getMode(),
+			List<Smoke> smokes = receiver.getSmokes();
+			if (IsSatisfy.<Smoke> prepareIsSatisfy(entity.getMode(),
 					entity.getTimes(), entity.getCondition(),
-					temp -> temp.getTemperature()).isSatisfy(temperatures)) {
+					temp -> temp.getSmoke()).isSatisfy(smokes)) {
 
 				Map<String, Object> variables = new HashMap<String, Object>();
-				variables.put("temperatures", temperatures);
+				variables.put("smokes", smokes);
 				new StartProcessInstanceCmd<Object>(null,
 						processDefinition.getId(), null, variables)
 						.execute(commandContext);

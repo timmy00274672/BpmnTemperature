@@ -20,12 +20,12 @@ public class TemperatureEventDefinition extends EventDefinition {
 		return condition;
 	}
 
-	public String getSensorId() {
-		return sensorId;
-	}
-
 	public String getMode() {
 		return mode;
+	}
+
+	public String getSensorId() {
+		return sensorId;
 	}
 
 	public String getTime() {
@@ -36,12 +36,12 @@ public class TemperatureEventDefinition extends EventDefinition {
 		this.condition = condition;
 	}
 
-	public void setSensorId(String id) {
-		this.sensorId = id;
-	}
-
 	public void setMode(String mode) {
 		this.mode = mode;
+	}
+
+	public void setSensorId(String id) {
+		this.sensorId = id;
 	}
 
 	public void setTime(String time) {

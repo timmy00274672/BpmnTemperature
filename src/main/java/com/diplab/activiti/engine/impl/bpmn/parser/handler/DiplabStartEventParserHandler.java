@@ -11,6 +11,7 @@ import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.apache.commons.lang3.StringUtils;
 
+import com.diplab.activiti.bpmn.model.SmokeEventDefinition;
 import com.diplab.activiti.bpmn.model.TemperatureEventDefinition;
 
 public class DiplabStartEventParserHandler extends StartEventParseHandler {
@@ -34,7 +35,8 @@ public class DiplabStartEventParserHandler extends StartEventParseHandler {
 			if (eventDefinition instanceof TimerEventDefinition
 					|| eventDefinition instanceof MessageEventDefinition
 					|| eventDefinition instanceof SignalEventDefinition
-					|| eventDefinition instanceof TemperatureEventDefinition) {
+					|| eventDefinition instanceof TemperatureEventDefinition
+					|| eventDefinition instanceof SmokeEventDefinition) {
 				bpmnParse.getBpmnParserHandlers().parseElement(bpmnParse,
 						eventDefinition);
 			}

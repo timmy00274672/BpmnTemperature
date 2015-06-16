@@ -7,18 +7,17 @@ import org.activiti.engine.impl.persistence.entity.ByteArrayRef;
 import org.activiti.engine.impl.persistence.entity.JobEntity;
 import org.springframework.util.SerializationUtils;
 
-import com.diplab.activiti.engine.impl.jobexecutor.TemperatureDeclarationImpl;
+import com.diplab.activiti.engine.impl.jobexecutor.SmokeDeclarationImpl;
 import com.diplab.device.RecordMode;
 
-public class TemperatureEntity extends JobEntity {
+public class SmokeEntity extends JobEntity {
 
-	private static final int INTERVAL_OF_SCANNING = 10;
-
-	// private Logger logger = LoggerFactory.getLogger(TemperatureEntity.class);
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -252628523662521870L;
+	private static final long serialVersionUID = 1141109910395127213L;
+
+	private static final int INTERVAL_OF_SCANNING = 10;
 
 	private double condition;
 
@@ -27,11 +26,11 @@ public class TemperatureEntity extends JobEntity {
 	private String self;
 	private int time;
 
-	public TemperatureEntity() {
+	public SmokeEntity() {
 
 	}
 
-	public TemperatureEntity(TemperatureDeclarationImpl declaration,
+	public SmokeEntity(SmokeDeclarationImpl declaration,
 			String processDefinitionId) {
 
 		jobHandlerType = declaration.getJobHandlerType();
@@ -46,7 +45,7 @@ public class TemperatureEntity extends JobEntity {
 
 	}
 
-	public TemperatureEntity(TemperatureEntity entity) {
+	public SmokeEntity(SmokeEntity entity) {
 		this.jobHandlerType = entity.jobHandlerType;
 		this.condition = entity.condition;
 		this.mode = entity.mode;
@@ -133,16 +132,16 @@ public class TemperatureEntity extends JobEntity {
 
 	@Override
 	public String toString() {
-		return "TemperatureEntity [condition=" + condition + ", mode=" + mode
+		return "SmokeEntity [condition=" + condition + ", mode=" + mode
 				+ ", sensorId=" + sensorId + ", self=" + self + ", times="
 				+ time + ", toString()=" + super.toString() + "]";
 	}
 
 	private void schedule(String self2) {
 		ByteArrayRef ref = new ByteArrayRef(self2);
-		TemperatureEntity entity = (TemperatureEntity) SerializationUtils
-				.deserialize(ref.getBytes());
-		entity = new TemperatureEntity(entity);
+		SmokeEntity entity = (SmokeEntity) SerializationUtils.deserialize(ref
+				.getBytes());
+		entity = new SmokeEntity(entity);
 		entity.insert();
 
 	}

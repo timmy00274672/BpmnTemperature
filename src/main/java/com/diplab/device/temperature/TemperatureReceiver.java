@@ -18,12 +18,12 @@ public abstract class TemperatureReceiver {
 
 	public LinkedList<Temperature> temperatures = new LinkedList<>();
 
-	public abstract Temperature getTemperature();
-
 	public abstract String getTemperatureDeviceId();
 
 	public List<Temperature> getTemperatures() {
 		temperatures.addFirst(getTemperature());
 		return temperatures;
 	}
+
+	protected abstract Temperature getTemperature();
 }

@@ -24,8 +24,10 @@ import com.diplab.activiti.bpmn.converter.SwitchTaskXMLConverter;
 import com.diplab.activiti.engine.impl.bpmn.deployer.DiplabBpmnDeployer;
 import com.diplab.activiti.engine.impl.bpmn.parser.handler.DiplabStartEventParserHandler;
 import com.diplab.activiti.engine.impl.bpmn.parser.handler.ReadTemperatureTaskParserHandler;
+import com.diplab.activiti.engine.impl.bpmn.parser.handler.SmokeEventDefinitionParserHandler;
 import com.diplab.activiti.engine.impl.bpmn.parser.handler.SwitchTaskParserHandler;
 import com.diplab.activiti.engine.impl.bpmn.parser.handler.TemperatureEventDefinitionParserHandler;
+import com.diplab.activiti.engine.impl.jobexecutor.SmokeStartEventJobHandler;
 import com.diplab.activiti.engine.impl.jobexecutor.TemperatureStartEventJobHandler;
 
 public class DipProcessEngineConfiguration extends
@@ -43,12 +45,13 @@ public class DipProcessEngineConfiguration extends
 
 		this.setPostBpmnParseHandlers(Arrays.<BpmnParseHandler> asList(
 				new TemperatureEventDefinitionParserHandler(),
+				new SmokeEventDefinitionParserHandler(),
 				new ReadTemperatureTaskParserHandler(),
 				new SwitchTaskParserHandler()));
 
-		this.setCustomJobHandlers(Arrays
-				.<JobHandler> asList(new TemperatureStartEventJobHandler()));
-
+		this.setCustomJobHandlers(Arrays.<JobHandler> asList(
+				new TemperatureStartEventJobHandler(),
+				new SmokeStartEventJobHandler()));
 	}
 
 	@Override

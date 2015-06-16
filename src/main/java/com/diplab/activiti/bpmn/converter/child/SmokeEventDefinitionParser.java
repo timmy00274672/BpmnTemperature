@@ -9,14 +9,14 @@ import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.Event;
 
 import com.diplab.activiti.Constant;
-import com.diplab.activiti.bpmn.model.TemperatureEventDefinition;
+import com.diplab.activiti.bpmn.model.SmokeEventDefinition;
 
 public class SmokeEventDefinitionParser extends BaseChildElementParser {
 
 	@Override
 	public String getElementName() {
 
-		return Constant.ELEMENT_TEMPERATURE_EVENT_DEFINITION;
+		return Constant.ELEMENT_SMOKE_EVENT_DEFINITION;
 	}
 
 	@Override
@@ -25,16 +25,14 @@ public class SmokeEventDefinitionParser extends BaseChildElementParser {
 		if (parentElement instanceof Event == false)
 			return;
 
-		TemperatureEventDefinition temperatureEventDefinition = new TemperatureEventDefinition();
-		BpmnXMLUtil.addXMLLocation(temperatureEventDefinition, xtr);
+		SmokeEventDefinition smokeEventDefinition = new SmokeEventDefinition();
+		BpmnXMLUtil.addXMLLocation(smokeEventDefinition, xtr);
 
 		// We need other child parser for node: mode, condition, id
-		BpmnXMLUtil.parseChildElements(
-				Constant.ELEMENT_TEMPERATURE_EVENT_DEFINITION,
-				temperatureEventDefinition, xtr, Constant.DIP_PARSER, model);
+		BpmnXMLUtil.parseChildElements(getElementName(), smokeEventDefinition,
+				xtr, Constant.DIP_PARSER, model);
 
-		((Event) parentElement).getEventDefinitions().add(
-				temperatureEventDefinition);
+		((Event) parentElement).getEventDefinitions().add(smokeEventDefinition);
 	}
 
 }

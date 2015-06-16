@@ -28,27 +28,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.diplab.activiti.Constant;
+import com.diplab.activiti.engine.impl.jobexecutor.SmokeDeclarationImpl;
+import com.diplab.activiti.engine.impl.jobexecutor.SmokeStartEventJobHandler;
 import com.diplab.activiti.engine.impl.jobexecutor.TemperatureDeclarationImpl;
 import com.diplab.activiti.engine.impl.jobexecutor.TemperatureStartEventJobHandler;
+import com.diplab.activiti.engine.impl.persistence.entity.SmokeEntity;
 import com.diplab.activiti.engine.impl.persistence.entity.TemperatureEntity;
 
 public class DiplabBpmnDeployer extends BpmnDeployer {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(DiplabBpmnDeployer.class);
-
-	private void addTemperautres(ProcessDefinitionEntity processDefinition) {
-		@SuppressWarnings("unchecked")
-		List<TemperatureDeclarationImpl> tempDeclarations = (List<TemperatureDeclarationImpl>) processDefinition
-				.getProperty(Constant.PROPERTYNAME_START_TEMP);
-		if (tempDeclarations != null) {
-			for (TemperatureDeclarationImpl temperatureDeclarationImpl : tempDeclarations) {
-				TemperatureEntity temperatureEntity = new TemperatureEntity(
-						temperatureDeclarationImpl, processDefinition.getId());
-				temperatureEntity.insert();
-			}
-		}
-	}
 
 	@Override
 	public void deploy(DeploymentEntity deployment,
@@ -237,6 +227,9 @@ public class DiplabBpmnDeployer extends BpmnDeployer {
 				removeObsoleteTemperatures(processDefinition);
 				addTemperautres(processDefinition);
 
+				removeObsoleteSmokes(processDefinition);
+				addSmokes(processDefinition);
+
 				removeObsoleteTimers(processDefinition);
 				addTimerDeclarations(processDefinition, timers);
 
@@ -300,6 +293,44 @@ public class DiplabBpmnDeployer extends BpmnDeployer {
 
 			// Add to deployment for further usage
 			deployment.addDeployedArtifact(processDefinition);
+		}
+	}
+
+	private void addSmokes(ProcessDefinitionEntity processDefinition) {
+		@SuppressWarnings("unchecked")
+		List<SmokeDeclarationImpl> smokeDeclarations = (List<SmokeDeclarationImpl>) processDefinition
+				.getProperty(Constant.PROPERTYNAME_START_SMOKE);
+		if (smokeDeclarations != null) {
+			for (SmokeDeclarationImpl smokeDeclarationImpl : smokeDeclarations) {
+				SmokeEntity smokeEntity = new SmokeEntity(smokeDeclarationImpl,
+						processDefinition.getId());
+				smokeEntity.insert();
+			}
+		}
+	}
+
+	private void addTemperautres(ProcessDefinitionEntity processDefinition) {
+		@SuppressWarnings("unchecked")
+		List<TemperatureDeclarationImpl> tempDeclarations = (List<TemperatureDeclarationImpl>) processDefinition
+				.getProperty(Constant.PROPERTYNAME_START_TEMP);
+		if (tempDeclarations != null) {
+			for (TemperatureDeclarationImpl temperatureDeclarationImpl : tempDeclarations) {
+				TemperatureEntity temperatureEntity = new TemperatureEntity(
+						temperatureDeclarationImpl, processDefinition.getId());
+				temperatureEntity.insert();
+			}
+		}
+	}
+
+	private void removeObsoleteSmokes(ProcessDefinitionEntity processDefinition) {
+		List<Job> jobsToDelete = Context
+				.getCommandContext()
+				.getJobEntityManager()
+				.findJobsByConfiguration(SmokeStartEventJobHandler.TYPE,
+						processDefinition.getKey());
+
+		for (Job job : jobsToDelete) {
+			new CancelJobsCmd(job.getId()).execute(Context.getCommandContext());
 		}
 	}
 

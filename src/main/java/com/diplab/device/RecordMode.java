@@ -1,7 +1,7 @@
 package com.diplab.device;
 
 public enum RecordMode {
-	Greater("greater"), LESSER("lesser"), EQUAL("equal"), NONE("");
+	Greater("greater"), LESSER("lesser"), EQUAL("equal"), NONE("NONE");
 
 	public final String calendarName;
 

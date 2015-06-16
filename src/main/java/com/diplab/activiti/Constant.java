@@ -27,6 +27,7 @@ public class Constant {
 	public static final String ELEMENT_TASK_SWITCH = "switchTask";
 
 	public static final String PROPERTYNAME_START_TEMP = "property-start-temp"; // List<TemperatureDeclarationImpl>
+	public static final String PROPERTYNAME_START_SMOKE = "property-start-smoke"; // List<SmokeDeclarationImpl>
 
 	public static Map<String, BaseChildElementParser> DIP_PARSER;
 
