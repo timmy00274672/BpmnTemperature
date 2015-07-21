@@ -29,7 +29,6 @@ public class SmokeStartEventJobHandler implements JobHandler {
 	@Override
 	public void execute(JobEntity job, String configuration,
 			ExecutionEntity execution, CommandContext commandContext) {
-		// TODO
 		ByteArrayRef ref = new ByteArrayRef(configuration);
 		SmokeEntity entity = (SmokeEntity) SerializationUtils.deserialize(ref
 				.getBytes());
