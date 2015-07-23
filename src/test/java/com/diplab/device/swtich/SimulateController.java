@@ -25,8 +25,9 @@ public class SimulateController extends SwitchController {
 	}
 
 	@Override
-	public void toggle() throws UnsupportedOperationException {
-		throw new UnsupportedOperationException(String.format(
-				"device[%s] doesn't support toggle command", deviceId));
+	public String toString() {
+		return "SimulateController [deviceId=" + deviceId + "]";
 	}
+
+	
 }

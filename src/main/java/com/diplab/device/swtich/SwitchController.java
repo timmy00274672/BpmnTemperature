@@ -21,5 +21,8 @@ public abstract class SwitchController {
 
 	public abstract void on();
 
-	public abstract void toggle() throws UnsupportedOperationException;
+	public void toggle() throws UnsupportedOperationException {
+		throw new UnsupportedOperationException(String.format(
+				"device[%s] doesn't support toggle command", this));
+	};
 }

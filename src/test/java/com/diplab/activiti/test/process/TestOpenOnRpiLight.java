@@ -4,10 +4,10 @@ import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 
 import com.diplab.activiti.engine.impl.cfg.DipStandaloneInMemProcessEngineConfiguration;
-import com.diplab.device.swtich.RpiTrunLightController;
+import com.diplab.device.swtich.SimulateController;
 import com.diplab.device.swtich.SwitchController;
 
-public class TestOpenLight {
+public class TestOpenOnRpiLight {
 
 	public static void main(String[] args) throws InterruptedException {
 		ProcessEngineConfigurationImpl config = new DipStandaloneInMemProcessEngineConfiguration();
@@ -15,7 +15,7 @@ public class TestOpenLight {
 
 		final ProcessEngine processEngine = config.buildProcessEngine();
 
-		SwitchController.addController(new RpiTrunLightController());
+		SwitchController.addController(new SimulateController("light-s-01"));
 		
 
 		processEngine.getRepositoryService().createDeployment()
