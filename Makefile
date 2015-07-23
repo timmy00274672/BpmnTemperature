@@ -16,7 +16,7 @@ clean:
 
 environment_RPi:
 	mvn test-compile dependency:copy-dependencies
-	make -C src/main/jni libdevice.so
+	#make -C src/main/jni libdevice.so
 
 TestOpenOnRpiLight: 
 	java -cp $(subst $(SPACE),:,$(CLASSPATH)) \
